@@ -297,31 +297,7 @@ const NormalizationDemo = () => {
           />
         ))}
       </div>
-
-      {/* Navigation buttons */}
-      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 flex space-x-4 z-20">
-        <button 
-          onClick={() => {
-            const prevIndex = Math.max(0, activeStep - 1);
-            scrollToStep(prevIndex);
-          }}
-          disabled={activeStep === 0}
-          className="bg-blue-500 text-white p-2 rounded-full disabled:opacity-50 hover:bg-blue-600 transition-colors"
-        >
-          Predchádzajúci krok
-        </button>
-        <button 
-          onClick={() => {
-            const nextIndex = Math.min(steps.length - 1, activeStep + 1);
-            scrollToStep(nextIndex);
-          }}
-          disabled={activeStep === steps.length - 1}
-          className="bg-blue-500 text-white p-2 rounded-full disabled:opacity-50 hover:bg-blue-600 transition-colors"
-        >
-          Ďalší krok
-        </button>
       </div>
-    </div>
   );
 };
 
