@@ -84,9 +84,7 @@ npm run build
 
 ## 👤 Autor
 
-- Meno:
-- Email:
-- GitHub:
+- adam03034
 
 ## 📝 Licencia
 
