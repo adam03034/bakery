@@ -9,7 +9,8 @@ import Zaver from "/Users/adamwirth/Desktop/prezentacia-db/src/components/Zaver.
 import SRBD from "/Users/adamwirth/Desktop/prezentacia-db/src/components/SRBD.jsx";
 import Uvodny from "/Users/adamwirth/Desktop/prezentacia-db/src/components/Uvodny.jsx";
 import Zaklady from "/Users/adamwirth/Desktop/prezentacia-db/src/components/Zaklady.jsx";
-
+// V Presentation.jsx by mal byť import takto:
+import ProductCatalog from './ProductCatalog' // alebo './ProductCatalog.jsx'
 
 
 
