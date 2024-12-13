@@ -13,17 +13,18 @@ const SalesDashboard = () => {
   ];
 
   const sqlQuery = `
-    SELECT 
-        v.nazov_vyr,
-        SUM(o.mnozstvo * v.jed_c_s) as trzby,
-        SUM(o.mnozstvo * (v.jed_c_s - (v.naklady_na_suroviny / v.velkost))) as marza,
-        SUM(o.mnozstvo * (v.naklady_na_suroviny / v.velkost)) as vydaje
-    FROM objednavky o
-    JOIN vyrobky v ON o.id_vyrobok = v.id_vyrobok
-    JOIN objednavky_list ol ON o.id_objednavka = ol.id_objednavka
-    WHERE ol.stav != 'Zrušená'
-    GROUP BY v.nazov_vyr
-    ORDER BY trzby DESC;
+    SELECT
+    v.nazov_vyr,
+    SUM(o.mnozstvo * v.jed_c_s) as trzby,
+    SUM(o.mnozstvo * (v.jed_c_s - (tp.naklady_na_suroviny / v.velkost))) as marza,
+    SUM(o.mnozstvo * (tp.naklady_na_suroviny / v.velkost)) as vydaje
+FROM objednavky o
+JOIN vyrobky v ON o.id_vyrobok = v.id_vyrobok
+JOIN objednavky_list ol ON o.id_objednavka = ol.id_objednavka
+JOIN Tp tp ON v.id_vyrobok = tp.id_vyrobok
+WHERE ol.stav != 'Zrušená'
+GROUP BY v.nazov_vyr
+ORDER BY trzby DESC;
   `;
 
   return (
