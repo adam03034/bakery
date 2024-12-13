@@ -1,18 +1,14 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import ProductCatalog from '/Users/adamwirth/Desktop/prezentacia-db/src/components/ProductCatalog.jsx';
-import ProcessFlow from '/Users/adamwirth/Desktop/prezentacia-db/src/components/ProcessFlow.jsx';
-import Keys from '/Users/adamwirth/Desktop/prezentacia-db/src/components/Keys.jsx';
-import Normalizacia from "/Users/adamwirth/Desktop/prezentacia-db/src/components/Normalizacia.jsx";
-import GrafyComponent from '/Users/adamwirth/Desktop/prezentacia-db/src/components/GrafyComponent.jsx';
-import Zaver from "/Users/adamwirth/Desktop/prezentacia-db/src/components/Zaver.jsx";
-import SRBD from "/Users/adamwirth/Desktop/prezentacia-db/src/components/SRBD.jsx";
-import Uvodny from "/Users/adamwirth/Desktop/prezentacia-db/src/components/Uvodny.jsx";
-import Zaklady from "/Users/adamwirth/Desktop/prezentacia-db/src/components/Zaklady.jsx";
-// V Presentation.jsx by mal byť import takto:
-import ProductCatalog from './ProductCatalog' // alebo './ProductCatalog.jsx'
-
-
+import ProductCatalog from './ProductCatalog';
+import ProcessFlow from './ProcessFlow';
+import Keys from './Keys';
+import Normalizacia from './Normalizacia';
+import GrafyComponent from './GrafyComponent';
+import Zaver from './Zaver';
+import SRBD from './SRBD';
+import Uvodny from './Uvodny';
+import Zaklady from './Zaklady';
 
 
 const CodeBlock = ({ code }) => (
