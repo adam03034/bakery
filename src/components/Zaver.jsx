@@ -4,8 +4,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 const ConclusionSection = () => {
   const [selectedBenefitItem, setSelectedBenefitItem] = useState(null);
   const [selectedDevelopmentItem, setSelectedDevelopmentItem] = useState(null);
-  const [hoveredBenefitItem, setHoveredBenefitItem] = useState(null);
-  const [hoveredDevelopmentItem, setHoveredDevelopmentItem] = useState(null);
 
   const sectionVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -14,23 +12,17 @@ const ConclusionSection = () => {
       y: 0,
       transition: {
         duration: 0.6,
-        staggerChildren: 0.1,
-        delayChildren: 0.2
+        staggerChildren: 0.1
       }
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, x: -50 },
+    hidden: { opacity: 0, x: -20 },
     visible: { 
       opacity: 1, 
       x: 0,
-      transition: { duration: 0.5 }
-    },
-    hover: { 
-      scale: 1.05,
-      boxShadow: "0 10px 15px -3px rgba(0,0,0,0.1)",
-      transition: { duration: 0.2 }
+      transition: { duration: 0.3 }
     }
   };
 
@@ -82,90 +74,59 @@ const ConclusionSection = () => {
     }
   ];
 
-  const renderItemList = (
-    items, 
-    baseColor, 
-    title, 
-    selectedItem, 
-    setSelectedItem, 
-    hoveredItem, 
-    setHoveredItem
-  ) => (
+  const renderItemList = (items, type, title, selectedItem, setSelectedItem) => (
     <motion.div 
       variants={sectionVariants}
-      className={`bg-gradient-to-br from-${baseColor}-50 to-purple-50 p-6 rounded-lg shadow-lg relative overflow-hidden`}
+      className={`${type === 'benefit' ? 'bg-blue-50' : 'bg-green-50'} p-6 rounded-lg shadow-lg`}
     >
       <motion.h3 
-        className={`font-bold text-lg ${baseColor === 'blue' ? 'text-blue-700' : 'text-green-700'} mb-3 relative z-10`}
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.3 }}
+        className={`font-bold text-lg ${type === 'benefit' ? 'text-blue-700' : 'text-green-700'} mb-4`}
       >
         {title}
       </motion.h3>
-      <ul className="space-y-3">
+      <div className="space-y-3">
         {items.map((item, index) => (
-          <motion.li 
+          <motion.div 
             key={index}
             variants={itemVariants}
-            initial="hidden"
-            animate="visible"
-            whileHover="hover"
-            onClick={() => setSelectedItem(selectedItem === index ? null : index)}
-            onHoverStart={() => setHoveredItem(index)}
-            onHoverEnd={() => setHoveredItem(null)}
-            className={`flex items-center space-x-3 p-2 rounded-md cursor-pointer transition-all duration-300 
-              ${hoveredItem === index ? 'bg-opacity-20 bg-blue-200' : ''}
-              ${selectedItem === index ? 'ring-2 ring-blue-300' : ''}`}
+            className="bg-white bg-opacity-80 rounded-lg shadow-sm"
           >
-            <span className="text-xl">{item.icon}</span>
-            <div className="flex-grow">
-              <span className={`${item.color} font-medium`}>{item.text}</span>
-            </div>
-            {hoveredItem === index && (
-              <motion.span 
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 20 }}
-                className="text-sm text-gray-600 hidden md:block"
-              >
-                ℹ️
-              </motion.span>
-            )}
-          </motion.li>
-        ))}
-      </ul>
-
-      <AnimatePresence>
-        {selectedItem !== null && (
-          <motion.div 
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className={`absolute inset-0 bg-gradient-to-br from-${baseColor}-100 to-purple-100 p-6 z-20 overflow-hidden`}
-          >
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
-              className="relative"
+            <div
+              onClick={() => setSelectedItem(selectedItem === index ? null : index)}
+              className={`flex items-center p-4 cursor-pointer ${
+                selectedItem === index ? 'rounded-t-lg' : 'rounded-lg'
+              }`}
             >
-              <button 
-                onClick={() => setSelectedItem(null)}
-                className="absolute top-0 right-0 text-2xl text-gray-600 hover:text-gray-800"
-              >
-                ✖️
-              </button>
-              <h4 className={`font-bold text-md ${baseColor === 'blue' ? 'text-blue-700' : 'text-green-700'} mb-2`}>
-                {items[selectedItem].text}
-              </h4>
-              <p className="text-gray-700">
-                {items[selectedItem].description}
-              </p>
-            </motion.div>
+              <span className="text-xl mr-3">{item.icon}</span>
+              <span className={`${item.color} font-medium`}>{item.text}</span>
+              {selectedItem === index && (
+                <button 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedItem(null);
+                  }}
+                  className="ml-auto text-gray-400 hover:text-gray-600"
+                >
+                  ✖️
+                </button>
+              )}
+            </div>
+            <AnimatePresence>
+              {selectedItem === index && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: 'auto', opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="px-4 pb-4 overflow-hidden"
+                >
+                  <p className="text-gray-600 mt-1">{item.description}</p>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.div>
-        )}
-      </AnimatePresence>
+        ))}
+      </div>
     </motion.div>
   );
 
@@ -178,21 +139,17 @@ const ConclusionSection = () => {
     >
       {renderItemList(
         benefitItems, 
-        'blue', 
+        'benefit',
         'Prínosy systému',
         selectedBenefitItem,
-        setSelectedBenefitItem,
-        hoveredBenefitItem,
-        setHoveredBenefitItem
+        setSelectedBenefitItem
       )}
       {renderItemList(
         developmentItems, 
-        'green', 
+        'development',
         'Ďalší rozvoj',
         selectedDevelopmentItem,
-        setSelectedDevelopmentItem,
-        hoveredDevelopmentItem,
-        setHoveredDevelopmentItem
+        setSelectedDevelopmentItem
       )}
     </motion.div>
   );
